@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">FirebasePhoneAuthLib</string>
+    <string name="lbl_hint_phone">Phone Number</string>
+    <string name="lbl_btn_verify_phone_number">Verify Phone Number</string>
+    <string name="lbl_phone_login_description"><![CDATA[By tapping \"Verify Phone Number\", an SMS may be sent. Message & data rates may apply.]]></string>
+    <string name="lbl_terms_of_service">Terms Of Service</string>
+    <string name="lbl_privacy_policy">Privacy Policy</string>
+    <string name="lbl_btn_resend">Resend code in %s:%s</string>
+    <string name="lbl_verify_code_send_description">Please type verification code send to %s</string>
+    <string name="lbl_btn_continue">Continue</string>
+    <string name="lbl_verification_code">Verification Code</string>
+    <string name="lbl_success">Success</string>
+</resources>
