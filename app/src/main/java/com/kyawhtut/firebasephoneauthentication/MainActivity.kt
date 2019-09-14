@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         appName = "Firebase Auth Lib"
         privacyPolicy = "https://kyawhtut.com"
         termsOfService = "https://kyawhtut.com/mmexchange"
-        headerImage = R.drawable.default_header
     }.build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
