@@ -129,8 +129,8 @@ class PhoneAuthentication : AppCompatActivity() {
     private fun getDataAndBind() {
         intent?.let {
             tv_app_name.text = it.getStringExtra(extraAppName) ?: "App Name"
-            iv_app_logo.setImageResource(it.getIntExtra(extraAppLogo, R.drawable.login_bg))
-            iv_header.setImageResource(it.getIntExtra(extraHeaderImage, R.drawable.login_bg))
+            iv_app_logo.setImageResource(it.getIntExtra(extraAppLogo, R.drawable.default_header))
+            iv_header.setImageResource(it.getIntExtra(extraHeaderImage, R.drawable.default_header))
             tv_terms_of_service.apply {
                 text = HtmlCompat.fromHtml(
                     String.format(

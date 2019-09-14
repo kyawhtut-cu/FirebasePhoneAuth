@@ -5,10 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
-import com.kyawhtut.firebasephoneauthlib.ui.PhoneAuthentication
-import com.kyawhtut.firebasephoneauthlib.util.LoginTheme
 import com.kyawhtut.firebasephoneauthlib.util.Phone
 import com.kyawhtut.firebasephoneauthlib.util.PhoneAuth
 import com.kyawhtut.firebasephoneauthlib.util.PhoneVerifyCallback
@@ -22,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         appName = "Firebase Auth Lib"
         privacyPolicy = "https://kyawhtut.com"
         termsOfService = "https://kyawhtut.com/mmexchange"
-        headerImage = R.drawable.template
+        headerImage = R.drawable.default_header
     }.build()
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -17,8 +17,8 @@ class PhoneAuth private constructor(
     var termsOfService: String = "",
     var privacyPolicy: String = "",
     var appName: String = "",
-    var appLogo: Int = R.drawable.login_bg,
-    var headerImage: Int = R.drawable.login_bg
+    var appLogo: Int = R.drawable.default_header,
+    var headerImage: Int = R.drawable.default_header
 ) : PhoneVerify {
 
     private val providers = arrayListOf(
@@ -95,8 +95,8 @@ class PhoneAuth private constructor(
         var termsOfService: String = ""
         var privacyPolicy: String = ""
         var appName: String = ""
-        var appLogo: Int = R.drawable.login_bg
-        var headerImage: Int = R.drawable.login_bg
+        var appLogo: Int = R.drawable.default_header
+        var headerImage: Int = R.drawable.default_header
 
         fun build(): PhoneAuth {
             phoneAuth = PhoneAuth(
