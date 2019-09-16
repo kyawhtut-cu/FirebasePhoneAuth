@@ -219,6 +219,7 @@ appName | String | App Name | Your application name to show in auth screen.
 appLogo | @Resource Integer | R.drawable.default_header | Show your application logo in auth screen.
 headerImage | @Resource Integer | R.drawable.default_header | To show as header image in auth scree.
 loginTheme | LoginTheme | LoginTheme.MaterialTheme | To determine UI screen. If you want to use Firebase default UI, you add parameter in startActivity(LoginTheme.FirebaseTheme). But you want to you MaterialTheme, you no need to pass parameter default is MaterialTheme.
+phoneNumber | String | empty | To request otp with programmatically. If you don't need to request automatically, empty is ok. 
 
 Screenshoot
 --------

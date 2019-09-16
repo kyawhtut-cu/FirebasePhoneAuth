@@ -20,8 +20,6 @@ class MainActivity : AppCompatActivity() {
         termsOfService = "https://kyawhtut.com/mmexchange"
     }.build()
 
-    private var index = 0
-
     private val phoneAuthCustom = PhoneAuthCustom.Builder(this).build()
 
     override fun onCreate(savedInstanceState: Bundle?) {

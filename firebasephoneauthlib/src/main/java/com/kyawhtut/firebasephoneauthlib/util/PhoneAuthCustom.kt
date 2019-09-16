@@ -152,14 +152,14 @@ class PhoneAuthCustom private constructor(
         constructor(activity: Activity?) : this(activity, null)
         constructor(fragment: Fragment?) : this(null, fragment)
 
-        var phone: String = ""
+        var phoneNumber: String = ""
         var phoneAuthCustom: PhoneAuthCustom? = null
         var listener: PhoneAuthListener? = null
 
         fun build(): PhoneAuthCustom {
             if (phoneAuthCustom == null) {
                 phoneAuthCustom = PhoneAuthCustom(activity, fragment).apply {
-                    phone = this@Builder.phone
+                    phone = this@Builder.phoneNumber
                     listener = this@Builder.listener
                 }
             }
