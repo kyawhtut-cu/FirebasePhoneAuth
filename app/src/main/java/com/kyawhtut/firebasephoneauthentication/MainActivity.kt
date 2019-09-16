@@ -26,14 +26,15 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
-            phoneAuth.logout(
+            phoneAuth.startActivity()
+            /*phoneAuth.logout(
                 success = {
                     phoneAuth.startActivity()
                 },
                 fail = {
                     Log.e(MainActivity::class.java.name, "error", it)
                 }
-            )
+            )*/
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }

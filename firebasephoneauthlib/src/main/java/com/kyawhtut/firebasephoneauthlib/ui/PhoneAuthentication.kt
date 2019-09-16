@@ -41,9 +41,9 @@ class PhoneAuthentication : AppCompatActivity() {
         override fun onVerificationFailed(e: FirebaseException) {
             Log.e(TAG, "onVerificationFailed", e)
             if (e is FirebaseAuthInvalidCredentialsException) {
-                et_phone_no.error = "Invalid phone number"
+                ed_phone_no.error = "Invalid phone number"
             } else if (e is FirebaseTooManyRequestsException) {
-                et_phone_no.error = "Your request is unusual request. So blocked your phone number."
+                ed_phone_no.error = "Your request is unusual request. So blocked your phone number."
             }
         }
 
@@ -66,7 +66,7 @@ class PhoneAuthentication : AppCompatActivity() {
             group_otp_input.visibility = View.VISIBLE
             tv_code_send_description.text = getString(
                 R.string.lbl_verify_code_send_description,
-                String.format("+%s%s", ccp.selectedCountryCode, ed_phone_number.text.toString())
+                String.format("+%s%s", ccp.selectedCountryCode, ed_phone_no.text.toString())
             )
         }
     }
@@ -89,9 +89,9 @@ class PhoneAuthentication : AppCompatActivity() {
             openBrowser(intent?.getStringExtra(extraPrivacyPolicy) ?: "")
         }
 
-        ed_phone_number.addTextChangedListener(
+        ed_phone_no.addTextChangedListener(
             onTextChanged = { _, _, _, _ ->
-                btn_verify.isEnabled = ed_phone_number.text.toString().length > 5
+                btn_verify.isEnabled = ed_phone_no.text.toString().length > 5
             }
         )
 
@@ -160,7 +160,7 @@ class PhoneAuthentication : AppCompatActivity() {
 
     private fun verifyPhone() {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-            String.format("+%s%s", ccp.selectedCountryCode, ed_phone_number.text.toString()),
+            String.format("+%s%s", ccp.selectedCountryCode, ed_phone_no.text.toString()),
             60,
             TimeUnit.SECONDS,
             this,
@@ -170,7 +170,7 @@ class PhoneAuthentication : AppCompatActivity() {
 
     private fun resendCode() {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-            String.format("+%s%s", ccp.selectedCountryCode, ed_phone_number.text.toString()),
+            String.format("+%s%s", ccp.selectedCountryCode, ed_phone_no.text.toString()),
             60,
             TimeUnit.SECONDS,
             this,

@@ -64,9 +64,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         app:ccp_hideNameCode="true"
-        app:layout_constraintBottom_toBottomOf="@+id/et_phone_no"
+        app:layout_constraintBottom_toBottomOf="@+id/ed_phone_no"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/et_phone_no" />
+        app:layout_constraintTop_toTopOf="@+id/ed_phone_no" />
 
     <View
         android:id="@+id/view_ccp"
@@ -77,26 +77,19 @@
         app:layout_constraintEnd_toEndOf="@+id/ccp"
         app:layout_constraintStart_toStartOf="@+id/ccp" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_phone_no"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/ed_phone_no"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:hint="@string/lbl_hint_phone"
+        android:textSize="18sp"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ccp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_app_name">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_phone_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="phone" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@+id/tv_app_name" />
 
     <TextView
         android:id="@+id/tv_description"
@@ -110,7 +103,7 @@
         android:textColor="#858585"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_phone_no" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_phone_no" />
 
     <TextView
         android:id="@+id/tv_terms_of_service"
@@ -156,7 +149,7 @@
         android:id="@+id/group_phone_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="et_phone_no,view_ccp,ccp,tv_description" />
+        app:constraint_referenced_ids="ed_phone_no,view_ccp,ccp,tv_description" />
 
     <com.kyawhtut.firebasephoneauthlib.otp.OtpView
         android:id="@+id/otp_view"
