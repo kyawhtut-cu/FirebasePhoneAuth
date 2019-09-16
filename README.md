@@ -24,7 +24,7 @@ How to add to your project
 
 2. Add library to your app build.gradle file then sync
 
-	Release version - [![Download](https://raw.githubusercontent.com/kyawhtut-cu/FirebasePhoneAuth/master/screenshoot/download.svg?sanitize=true)](https://github.com/kyawhtut-cu/FirebasePhoneAuth/releases/tag/1.0.1)
+	Release version - [![Download](https://raw.githubusercontent.com/kyawhtut-cu/FirebasePhoneAuth/master/screenshoot/download.svg?sanitize=true)](https://github.com/kyawhtut-cu/FirebasePhoneAuth/releases/)
 
 	```groovy
 	dependencies {

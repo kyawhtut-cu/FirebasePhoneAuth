@@ -24,15 +24,6 @@ class PhoneAuth private constructor(
     var headerImage: Int = R.drawable.default_header
 ) : PhoneVerify {
 
-    constructor(
-        fm: Fragment? = null,
-        termsOfService: String = "",
-        privacyPolicy: String = "",
-        appName: String = "",
-        appLogo: Int = R.drawable.default_header,
-        headerImage: Int = R.drawable.default_header
-    ) : this(null, fm, termsOfService, privacyPolicy, appName, appLogo, headerImage)
-
     private val providers = arrayListOf(
         AuthUI.IdpConfig.PhoneBuilder().build()
     )
@@ -98,7 +89,9 @@ class PhoneAuth private constructor(
     }
 
     private fun getIntent(): Intent {
-        val intent = Intent(activity, PhoneAuthentication::class.java)
+        if (activity == null && fm == null) Throwable("Please set activity or fragment. Activity or Fragment must not be null.")
+        val intent =
+            Intent(if (activity == null) fm?.context else activity, PhoneAuthentication::class.java)
         intent.apply {
             putExtra(PhoneAuthentication.extraTermsOfService, termsOfService)
             putExtra(PhoneAuthentication.extraPrivacyPolicy, privacyPolicy)
