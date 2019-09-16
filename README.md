@@ -78,6 +78,13 @@ Usage
 	*
 	* */
 	phoneAuth.startActivity()
+	
+	/* *
+	*
+	* auto otp request code by default phone number
+	*
+	* */
+	phoneAuth.startActivity("09973419006")
 
 	/* *
     	*
@@ -102,6 +109,63 @@ Usage
             Log.e("Logout error", "error", it)
         }
     )
+    
+
+Custom UI With Phone Auth
+--------------
+
+    /* *
+    *
+    * create phone auth custom object instance
+    *
+    * */
+    private val phoneAuthCustom = PhoneAuthCustom.Builder(activity or fragment).build()
+    
+    /* *
+    *
+    * add listener
+    *
+    * */
+    phoneAuthCustom.listener = object: PhoneAuthCallback() {
+        override fun onCodeSent(verificationId: String) {
+            //todo: This method will execute after code sent to phone number
+        }
+
+        override fun onVerificationCompleted() {
+            //todo: This method will execute after auto verify without otp code send.
+        }
+
+        override fun onVerificationFailed(e: Exception) {
+            //todo: This method will execute after verification fail
+        }
+
+        override fun onVerificationSuccessful(phone: Phone) {
+            //todo: This method will excute after verification pass with user input otp
+        }
+    }
+    
+    
+    /* *
+    *
+    * to send code (09973419006) you should need to add country code
+    *
+    * */
+    phoneAuthCustom.sendCode("+959973419006")
+    
+    /* *
+    *
+    * after code send method execute, you want to resend code you should call this method. 
+    * You should wait 1 min or 30 second because of firebase will block phone number unusual request.
+    *
+    * */
+    phoneAuthCustom.resendCode()
+    
+    /* *
+    *
+    * to verify user input otp with phone number
+    *
+    * */
+    phoneAuthCustom.verifyOtp(user_input_otp_code)
 
 	
 

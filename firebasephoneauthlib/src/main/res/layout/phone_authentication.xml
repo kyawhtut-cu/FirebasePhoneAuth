@@ -21,7 +21,7 @@
             android:id="@+id/iv_header"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:src="@drawable/default_header" />
 
     </com.github.florent37.diagonallayout.DiagonalLayout>
@@ -36,7 +36,6 @@
         android:src="@drawable/default_header"
         app:civ_border_color="#50000000"
         app:civ_border_overlay="true"
-        app:civ_border_width="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/diagonalLayout"
@@ -224,5 +223,20 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         app:constraint_referenced_ids="btn_resend,tv_code_send_description,otp_view" />
+
+    <FrameLayout
+        android:id="@+id/fm_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#54000000"
+        android:elevation="12dp"
+        android:longClickable="true"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

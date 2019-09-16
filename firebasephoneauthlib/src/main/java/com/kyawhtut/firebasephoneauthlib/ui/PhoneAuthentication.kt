@@ -34,12 +34,15 @@ class PhoneAuthentication : AppCompatActivity() {
     private val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
         override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-            Log.d(TAG, "onVerificationCompleted")
+            fm_loading.visibility = View.GONE
             authCredential = credential
+            if (credential.smsCode == null) {
+                signInWithPhoneAuthCredential(authCredential!!)
+            }
         }
 
         override fun onVerificationFailed(e: FirebaseException) {
-            Log.e(TAG, "onVerificationFailed", e)
+            fm_loading.visibility = View.GONE
             if (e is FirebaseAuthInvalidCredentialsException) {
                 ed_phone_no.error = "Invalid phone number"
             } else if (e is FirebaseTooManyRequestsException) {
@@ -51,7 +54,6 @@ class PhoneAuthentication : AppCompatActivity() {
             vId: String,
             token: PhoneAuthProvider.ForceResendingToken
         ) {
-            Log.d(TAG, "onCodeSent:$vId")
             verificationId = vId
             resendToken = token
             btn_verify.apply {
@@ -59,6 +61,7 @@ class PhoneAuthentication : AppCompatActivity() {
                 text = getString(R.string.lbl_btn_continue)
             }
             startTimer()
+            fm_loading.visibility = View.GONE
             tv_terms_of_service.visibility = View.GONE
             tv_privacy_policy.visibility = View.GONE
             tv_app_name.text = getString(R.string.lbl_verification_code)
@@ -131,6 +134,11 @@ class PhoneAuthentication : AppCompatActivity() {
             tv_app_name.text = it.getStringExtra(extraAppName) ?: "App Name"
             iv_app_logo.setImageResource(it.getIntExtra(extraAppLogo, R.drawable.default_header))
             iv_header.setImageResource(it.getIntExtra(extraHeaderImage, R.drawable.default_header))
+            ed_phone_no.setText(it.getStringExtra(extraPhoneNumber) ?: "")
+            if (ed_phone_no.text.toString().isNotEmpty()) {
+                if (authCredential == null && verificationId.isEmpty())
+                    verifyPhone()
+            }
             tv_terms_of_service.apply {
                 text = HtmlCompat.fromHtml(
                     String.format(
@@ -159,6 +167,7 @@ class PhoneAuthentication : AppCompatActivity() {
     }
 
     private fun verifyPhone() {
+        fm_loading.visibility = View.VISIBLE
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
             String.format("+%s%s", ccp.selectedCountryCode, ed_phone_no.text.toString()),
             60,
@@ -169,6 +178,7 @@ class PhoneAuthentication : AppCompatActivity() {
     }
 
     private fun resendCode() {
+        fm_loading.visibility = View.VISIBLE
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
             String.format("+%s%s", ccp.selectedCountryCode, ed_phone_no.text.toString()),
             60,
@@ -202,10 +212,11 @@ class PhoneAuthentication : AppCompatActivity() {
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+        fm_loading.visibility = View.VISIBLE
         firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
+                fm_loading.visibility = View.GONE
                 if (task.isSuccessful) {
-                    Log.d(TAG, "signInWithCredential:success")
                     SuccessDialog.Builder(this).apply {
                         this.message = "Auth Success"
                         isCancelable = false
@@ -216,7 +227,6 @@ class PhoneAuthentication : AppCompatActivity() {
                         }
                     }.show(supportFragmentManager, SuccessDialog::class.java.name)
                 } else {
-                    Log.w(TAG, "signInWithCredential:failure", task.exception)
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         tv_otp_code_error.apply {
                             text = "Invalid code"
@@ -239,5 +249,6 @@ class PhoneAuthentication : AppCompatActivity() {
         const val extraAppName = "extra.appName"
         const val extraAppLogo = "extra.appLogo"
         const val extraHeaderImage = "extra.headerImage"
+        const val extraPhoneNumber = "extra.phoneNumber"
     }
 }

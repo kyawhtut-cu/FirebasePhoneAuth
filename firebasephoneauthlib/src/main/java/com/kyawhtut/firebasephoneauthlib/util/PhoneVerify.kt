@@ -7,6 +7,8 @@ interface PhoneVerify {
 
     fun startActivity(loginTheme: LoginTheme = LoginTheme.MaterialTheme)
 
+    fun startActivity(phone: String, loginTheme: LoginTheme = LoginTheme.MaterialTheme)
+
     fun onActivityResult(
         requestCode: Int,
         resultCode: Int,

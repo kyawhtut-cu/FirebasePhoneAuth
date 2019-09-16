@@ -21,7 +21,8 @@ class PhoneAuth private constructor(
     var privacyPolicy: String = "",
     var appName: String = "",
     var appLogo: Int = R.drawable.default_header,
-    var headerImage: Int = R.drawable.default_header
+    var headerImage: Int = R.drawable.default_header,
+    var phoneNumber: String = ""
 ) : PhoneVerify {
 
     private val providers = arrayListOf(
@@ -32,7 +33,7 @@ class PhoneAuth private constructor(
         private const val PHONE_AUTH = 0x1497
         private const val PHONE_AUTH_DEFAULT = 0x1498
 
-        fun logout(ctx: Context, success: () -> Unit, fail: (Exception) -> Unit) {
+        fun logout(ctx: Context, success: () -> Unit = {}, fail: (Exception) -> Unit = {}) {
             if (FirebaseAuth.getInstance().currentUser != null)
                 AuthUI.getInstance().signOut(ctx).addOnCompleteListener {
                     if (it.isSuccessful) success()
@@ -43,8 +44,13 @@ class PhoneAuth private constructor(
         fun isLogin() = FirebaseAuth.getInstance().currentUser != null
     }
 
+    override fun startActivity(phone: String, loginTheme: LoginTheme) {
+        this.phoneNumber = phone
+        startActivity(loginTheme)
+    }
+
     override fun startActivity(loginTheme: LoginTheme) {
-        if (activity == null && fm == null) Throwable("Please set activity or fragment. Activity or Fragment must not be null.")
+        if (activity == null && fm == null) throw IllegalArgumentException("Please set activity or fragment. Activity or Fragment must not be null.")
         if (activity != null) {
             if (loginTheme is LoginTheme.MaterialTheme)
                 activity?.startActivityForResult(
@@ -98,7 +104,9 @@ class PhoneAuth private constructor(
             putExtra(PhoneAuthentication.extraAppName, appName)
             putExtra(PhoneAuthentication.extraAppLogo, appLogo)
             putExtra(PhoneAuthentication.extraHeaderImage, headerImage)
+            putExtra(PhoneAuthentication.extraPhoneNumber, phoneNumber)
         }
+        this.phoneNumber = ""
         return intent
     }
 
@@ -119,7 +127,7 @@ class PhoneAuth private constructor(
     }
 
     override fun logout(success: () -> Unit, fail: (Exception) -> Unit) {
-        if (activity == null) Throwable("Please set activity. Activity must not be null.")
+        if (activity == null) throw IllegalArgumentException("Please set activity. Activity must not be null.")
         if (isLogin())
             AuthUI.getInstance().signOut(activity!!).addOnCompleteListener {
                 if (it.isSuccessful) success()
@@ -139,6 +147,7 @@ class PhoneAuth private constructor(
         var appName: String = ""
         var appLogo: Int = R.drawable.default_header
         var headerImage: Int = R.drawable.default_header
+        var phoneNumber: String = ""
 
         fun build(): PhoneAuth {
             phoneAuth = PhoneAuth(
@@ -148,7 +157,8 @@ class PhoneAuth private constructor(
                 privacyPolicy,
                 appName,
                 appLogo,
-                headerImage
+                headerImage,
+                phoneNumber
             )
             return phoneAuth
         }
