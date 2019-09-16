@@ -2,10 +2,12 @@ package com.kyawhtut.firebasephoneauthlib.util
 
 import android.app.Activity
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.fragment.app.Fragment
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
@@ -21,6 +23,15 @@ class PhoneAuth private constructor(
     var headerImage: Int = R.drawable.default_header
 ) : PhoneVerify {
 
+    constructor(
+        fm: Fragment? = null,
+        termsOfService: String = "",
+        privacyPolicy: String = "",
+        appName: String = "",
+        appLogo: Int = R.drawable.default_header,
+        headerImage: Int = R.drawable.default_header
+    ) : this(fm?.activity ?: null, termsOfService, privacyPolicy, appName, appLogo, headerImage)
+
     private val providers = arrayListOf(
         AuthUI.IdpConfig.PhoneBuilder().build()
     )
@@ -28,6 +39,13 @@ class PhoneAuth private constructor(
     companion object {
         private const val PHONE_AUTH = 0x1497
         private const val PHONE_AUTH_DEFAULT = 0x1498
+
+        fun logout(ctx: Context, success: () -> Unit, fail: (Exception) -> Unit) {
+            AuthUI.getInstance().signOut(ctx).addOnCompleteListener {
+                if (it.isSuccessful) success()
+                else fail(it.exception ?: Exception("Something went wrong!!"))
+            }
+        }
     }
 
     override fun startActivity(loginTheme: LoginTheme) {
