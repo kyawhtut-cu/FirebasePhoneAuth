@@ -41,11 +41,14 @@ class PhoneAuth private constructor(
         private const val PHONE_AUTH_DEFAULT = 0x1498
 
         fun logout(ctx: Context, success: () -> Unit, fail: (Exception) -> Unit) {
-            AuthUI.getInstance().signOut(ctx).addOnCompleteListener {
-                if (it.isSuccessful) success()
-                else fail(it.exception ?: Exception("Something went wrong!!"))
-            }
+            if (FirebaseAuth.getInstance().currentUser != null)
+                AuthUI.getInstance().signOut(ctx).addOnCompleteListener {
+                    if (it.isSuccessful) success()
+                    else fail(it.exception ?: Exception("Something went wrong!!"))
+                }
         }
+
+        fun isLogin() = FirebaseAuth.getInstance().currentUser != null
     }
 
     override fun startActivity(loginTheme: LoginTheme) {
@@ -101,10 +104,11 @@ class PhoneAuth private constructor(
 
     override fun logout(success: () -> Unit, fail: (Exception) -> Unit) {
         if (activity == null) Throwable("Please set activity. Activity must not be null.")
-        AuthUI.getInstance().signOut(activity!!).addOnCompleteListener {
-            if (it.isSuccessful) success()
-            else fail(it.exception ?: Exception("Something went wrong!!"))
-        }
+        if (FirebaseAuth.getInstance().currentUser != null)
+            AuthUI.getInstance().signOut(activity!!).addOnCompleteListener {
+                if (it.isSuccessful) success()
+                else fail(it.exception ?: Exception("Something went wrong!!"))
+            }
     }
 
     class Builder(var activity: Activity?) {
