@@ -87,19 +87,19 @@ Usage
 	phoneAuth.startActivity("09973419006")
 
 	/* *
-    	*
-    	* to check Account Login
-    	* return @Boolean
-    	*
-    	* */
+	*
+	* to check Account Login
+	* return @Boolean
+	*
+	* */
     PhoneAuth.isLogin()
 
     /* *
-        *
-        * to check Account Login
-        * return @Boolean
-        *
-        * */
+    *
+    * to check Account Login
+    * return @Boolean
+    *
+    * */
     PhoneAuth.logout(
         context,
         success = {
