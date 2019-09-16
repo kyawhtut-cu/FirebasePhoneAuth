@@ -16,6 +16,7 @@ import com.kyawhtut.firebasephoneauthlib.ui.PhoneAuthentication
 
 class PhoneAuth private constructor(
     private var activity: Activity? = null,
+    private var fm: Fragment? = null,
     var termsOfService: String = "",
     var privacyPolicy: String = "",
     var appName: String = "",
@@ -30,7 +31,7 @@ class PhoneAuth private constructor(
         appName: String = "",
         appLogo: Int = R.drawable.default_header,
         headerImage: Int = R.drawable.default_header
-    ) : this(fm?.activity ?: null, termsOfService, privacyPolicy, appName, appLogo, headerImage)
+    ) : this(null, fm, termsOfService, privacyPolicy, appName, appLogo, headerImage)
 
     private val providers = arrayListOf(
         AuthUI.IdpConfig.PhoneBuilder().build()
@@ -52,25 +53,47 @@ class PhoneAuth private constructor(
     }
 
     override fun startActivity(loginTheme: LoginTheme) {
-        if (activity == null) Throwable("Please set activity. Activity must not be null.")
-        if (loginTheme is LoginTheme.MaterialTheme)
-            activity?.startActivityForResult(
-                getIntent(),
-                PHONE_AUTH
-            )
-        else {
-            activity?.startActivityForResult(
-                AuthUI.getInstance()
-                    .createSignInIntentBuilder()
-                    .setAvailableProviders(providers)
-                    .setLogo(appLogo)
-                    .setTosAndPrivacyPolicyUrls(
-                        if (termsOfService.isEmpty()) "https://joebirch.co/terms.html" else termsOfService,
-                        if (privacyPolicy.isEmpty()) "https://joebirch.co/privacy.html" else privacyPolicy
-                    )
-                    .build(),
-                PHONE_AUTH_DEFAULT
-            )
+        if (activity == null && fm == null) Throwable("Please set activity or fragment. Activity or Fragment must not be null.")
+        if (activity != null) {
+            if (loginTheme is LoginTheme.MaterialTheme)
+                activity?.startActivityForResult(
+                    getIntent(),
+                    PHONE_AUTH
+                )
+            else {
+                activity?.startActivityForResult(
+                    AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .setLogo(appLogo)
+                        .setTosAndPrivacyPolicyUrls(
+                            if (termsOfService.isEmpty()) "https://joebirch.co/terms.html" else termsOfService,
+                            if (privacyPolicy.isEmpty()) "https://joebirch.co/privacy.html" else privacyPolicy
+                        )
+                        .build(),
+                    PHONE_AUTH_DEFAULT
+                )
+            }
+        } else {
+            if (loginTheme is LoginTheme.MaterialTheme)
+                fm?.startActivityForResult(
+                    getIntent(),
+                    PHONE_AUTH
+                )
+            else {
+                fm?.startActivityForResult(
+                    AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .setLogo(appLogo)
+                        .setTosAndPrivacyPolicyUrls(
+                            if (termsOfService.isEmpty()) "https://joebirch.co/terms.html" else termsOfService,
+                            if (privacyPolicy.isEmpty()) "https://joebirch.co/privacy.html" else privacyPolicy
+                        )
+                        .build(),
+                    PHONE_AUTH_DEFAULT
+                )
+            }
         }
     }
 
@@ -104,14 +127,18 @@ class PhoneAuth private constructor(
 
     override fun logout(success: () -> Unit, fail: (Exception) -> Unit) {
         if (activity == null) Throwable("Please set activity. Activity must not be null.")
-        if (FirebaseAuth.getInstance().currentUser != null)
+        if (isLogin())
             AuthUI.getInstance().signOut(activity!!).addOnCompleteListener {
                 if (it.isSuccessful) success()
                 else fail(it.exception ?: Exception("Something went wrong!!"))
             }
     }
 
-    class Builder(var activity: Activity?) {
+    class Builder private constructor(var activity: Activity?, var fragment: Fragment?) {
+
+        constructor(fm: Fragment?) : this(null, fm)
+        constructor(activity: Activity?) : this(activity, null)
+
         private lateinit var phoneAuth: PhoneAuth
 
         var termsOfService: String = ""
@@ -123,6 +150,7 @@ class PhoneAuth private constructor(
         fun build(): PhoneAuth {
             phoneAuth = PhoneAuth(
                 activity,
+                fragment,
                 termsOfService,
                 privacyPolicy,
                 appName,

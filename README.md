@@ -50,7 +50,7 @@ Usage
 	* create phone auth object instance
 	*
 	* */
-	private val phoneAuth: PhoneAuth = PhoneAuth.Builder(activity).apply {
+	private val phoneAuth: PhoneAuth = PhoneAuth.Builder(activity or fragment).apply {
 		appName = "Firebase Auth Lib"
 		privacyPolicy = "https://kyawhtut.com"
 		termsOfService = "https://kyawhtut.com"
@@ -78,6 +78,31 @@ Usage
 	*
 	* */
 	phoneAuth.startActivity()
+
+	/* *
+    	*
+    	* to check Account Login
+    	* return @Boolean
+    	*
+    	* */
+    PhoneAuth.isLogin()
+
+    /* *
+        *
+        * to check Account Login
+        * return @Boolean
+        *
+        * */
+    PhoneAuth.logout(
+        context,
+        success = {
+            Log.i("Logout success", "Success")
+        },
+        fail = {
+            Log.e("Logout error", "error", it)
+        }
+    )
+
 	
 
 ပြီးသွားပါက onActivityResult(...){} ထဲမှာ အောက်က listener လေးကိုရေးပေးပါ။
