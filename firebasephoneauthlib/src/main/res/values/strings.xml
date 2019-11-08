@@ -10,4 +10,5 @@
     <string name="lbl_btn_continue">Continue</string>
     <string name="lbl_verification_code">Verification Code</string>
     <string name="lbl_success">Success</string>
+    <string name="lbl_invalid_code">Invalid Code</string>
 </resources>

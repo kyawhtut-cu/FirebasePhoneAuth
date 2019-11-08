@@ -223,19 +223,11 @@ phoneNumber | String | empty | To request otp with programmatically. If you don'
 
 Screenshoot
 --------
+<img alt="Firebase PhoneAuth" src="https://raw.githubusercontent.com/kyawhtut-cu/FirebasePhoneAuth/master/screenshoot/photo-1.png" width="250"/> <img alt="Firebase PhoneAuth" src="https://raw.githubusercontent.com/kyawhtut-cu/FirebasePhoneAuth/master/screenshoot/photo-2.png" width="250"/>
 
-[![screen](https://raw.githubusercontent.com/kyawhtut-cu/FirebasePhoneAuth/master/screenshoot/photo-1.png)](https://github.com/kyawhtut-cu/FirebasePhoneAuth)
+<img alt="Firebase PhoneAuth" src="https://raw.githubusercontent.com/kyawhtut-cu/FirebasePhoneAuth/master/screenshoot/photo-3.png" width="250"/> <img alt="Firebase PhoneAuth" src="https://raw.githubusercontent.com/kyawhtut-cu/FirebasePhoneAuth/master/screenshoot/photo-4.png" width="250"/>
 
-[![screen](https://raw.githubusercontent.com/kyawhtut-cu/FirebasePhoneAuth/master/screenshoot/photo-2.png)](https://github.com/kyawhtut-cu/FirebasePhoneAuth)
-
-[![screen](https://raw.githubusercontent.com/kyawhtut-cu/FirebasePhoneAuth/master/screenshoot/photo-3.png)](https://github.com/kyawhtut-cu/FirebasePhoneAuth)
-
-[![screen](https://raw.githubusercontent.com/kyawhtut-cu/FirebasePhoneAuth/master/screenshoot/photo-4.png)](https://github.com/kyawhtut-cu/FirebasePhoneAuth)
-
-[![screen](https://raw.githubusercontent.com/kyawhtut-cu/FirebasePhoneAuth/master/screenshoot/photo-5.png)](https://github.com/kyawhtut-cu/FirebasePhoneAuth)
-
-[![screen](https://raw.githubusercontent.com/kyawhtut-cu/FirebasePhoneAuth/master/screenshoot/photo-6.png)](https://github.com/kyawhtut-cu/FirebasePhoneAuth)
-
+<img alt="Firebase PhoneAuth" src="https://raw.githubusercontent.com/kyawhtut-cu/FirebasePhoneAuth/master/screenshoot/photo-5.png" width="250"/> <img alt="Firebase PhoneAuth" src="https://raw.githubusercontent.com/kyawhtut-cu/FirebasePhoneAuth/master/screenshoot/photo-6.png" width="250"/>
 
 
 Credits

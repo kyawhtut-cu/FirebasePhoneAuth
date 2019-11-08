@@ -2,10 +2,11 @@ package com.kyawhtut.firebasephoneauthlib.ui
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -19,12 +20,21 @@ import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.kyawhtut.firebasephoneauthlib.R
 import com.kyawhtut.firebasephoneauthlib.otp.OnOtpCompletionListener
-import com.kyawhtut.firebasephoneauthlib.util.Phone
 import com.kyawhtut.firebasephoneauthlib.util.SuccessDialog
 import kotlinx.android.synthetic.main.phone_authentication.*
 import java.util.concurrent.TimeUnit
 
 class PhoneAuthentication : AppCompatActivity() {
+
+    companion object {
+        private val TAG = PhoneAuthentication::class.java.name
+        const val extraTermsOfService = "extra.termsOfService"
+        const val extraPrivacyPolicy = "extra.privacyPolicy"
+        const val extraAppName = "extra.appName"
+        const val extraAppLogo = "extra.appLogo"
+        const val extraHeaderImage = "extra.headerImage"
+        const val extraPhoneNumber = "extra.phoneNumber"
+    }
 
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private var resendToken: PhoneAuthProvider.ForceResendingToken? = null
@@ -77,10 +87,14 @@ class PhoneAuthentication : AppCompatActivity() {
     override
     fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+        window.apply {
+            clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                statusBarColor = Color.TRANSPARENT
+                addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            }
+        }
         setContentView(R.layout.phone_authentication)
 
         getDataAndBind()
@@ -229,7 +243,7 @@ class PhoneAuthentication : AppCompatActivity() {
                 } else {
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         tv_otp_code_error.apply {
-                            text = "Invalid code"
+                            text = getString(R.string.lbl_invalid_code)
                             visibility = View.VISIBLE
                         }
                     }
@@ -240,15 +254,5 @@ class PhoneAuthentication : AppCompatActivity() {
     override fun onBackPressed() {
         setResult(Activity.RESULT_CANCELED)
         super.onBackPressed()
-    }
-
-    companion object {
-        private val TAG = PhoneAuthentication::class.java.name
-        const val extraTermsOfService = "extra.termsOfService"
-        const val extraPrivacyPolicy = "extra.privacyPolicy"
-        const val extraAppName = "extra.appName"
-        const val extraAppLogo = "extra.appLogo"
-        const val extraHeaderImage = "extra.headerImage"
-        const val extraPhoneNumber = "extra.phoneNumber"
     }
 }

@@ -164,13 +164,17 @@
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:cursorColor="?attr/colorPrimary"
         app:itemCount="6"
         app:itemRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_app_name"
         app:lineColor="?colorPrimary"
-        app:viewType="rectangle" />
+        app:viewType="rectangle">
+
+        <requestFocus />
+    </com.kyawhtut.firebasephoneauthlib.otp.OtpView>
 
     <TextView
         android:id="@+id/tv_otp_code_error"
@@ -229,7 +233,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#54000000"
-        android:elevation="12dp"
         android:longClickable="true"
         android:visibility="gone">
 
